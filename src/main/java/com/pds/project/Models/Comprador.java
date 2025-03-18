@@ -1,24 +1,32 @@
 package com.pds.project.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Compradores")
 public class Comprador {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idComprador;
-    @Column (name = "nombre", length=60)
+
+    @Column(name = "Nombre", length = 60)
     protected String nombre;
-    @Column (name = "apellido", length=60)
+
+    @Column(name = "Apellido", length = 60)
     protected String apellido;
-    @Column (name = "documento")
+
+    @Column(unique = true, name = "Documento")
     protected Integer documento;
-    @Column (name = "telefono")
+
+    @Column(name = "Domicilio", length = 60)
+    protected String domicilio;
+
+    @Column(unique = true, name = "Telefono")
     protected Integer telefono;
-    @Column (name = "email", length=60)
-    protected String email;    
+
+    @Column(unique = true, name = "Correo Electronico", length = 60)
+    protected String email;
+
+    @Column(unique = true, name = "Cuit/Cuil")
+    protected Integer cuitCuil;    
 }
