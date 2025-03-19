@@ -12,4 +12,6 @@ import jakarta.persistence.InheritanceType;
 @DiscriminatorColumn(name = "Metodo de pago", discriminatorType = DiscriminatorType.STRING)
 public abstract class MetodoPago {
     public MetodoPago() {}
+
+    public abstract double pagar(Vehiculo vehiculo);
 }
