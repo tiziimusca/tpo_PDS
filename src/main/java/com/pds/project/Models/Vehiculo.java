@@ -38,9 +38,6 @@ public class Vehiculo {
     @Column(name = "precio")
     private double precio;
 
-    @Column (name = "Estado de vehiculo")
-    private String estado;
-
     public Vehiculo() {}
 
     public Vehiculo(String marca, String modelo, String color, Integer numeroChasis, Integer numeroMotor, double precio) {
