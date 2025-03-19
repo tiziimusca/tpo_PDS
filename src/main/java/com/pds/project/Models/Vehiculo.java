@@ -2,14 +2,14 @@ package com.pds.project.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
-import jakarta.persistence.Table;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -47,5 +47,9 @@ public class Vehiculo {
         this.numeroChasis = numeroChasis;
         this.numeroMotor = numeroMotor;
         this.precio = precio;
+    }
+
+    public double getPrecio() {
+        return precio;
     }
 }
