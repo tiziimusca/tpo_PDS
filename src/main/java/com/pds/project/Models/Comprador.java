@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Comprador {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idComprador;
+    protected Long idComprador;
 
     @Column(name = "Nombre", length = 60)
     protected String nombre;

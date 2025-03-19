@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Vendedor {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idVendedor;
+    protected Long idVendedor;
 
     @Column(name = "Nombre", length = 60)
     protected String nombre;

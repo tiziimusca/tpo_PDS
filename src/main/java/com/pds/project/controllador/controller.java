@@ -1,4 +1,4 @@
-package com.pds.project.Models.controllador;
+package com.pds.project.controllador;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pds.project.Models.Comprador;
-import com.pds.project.Models.repositorio.repositorioComprador;
+import com.pds.project.Repository.ICompradorRepository;
 
 @RestController
 public class controller {
 
     @Autowired
-    private repositorioComprador repoComprador;
+    private ICompradorRepository repoComprador;
 
     @GetMapping()
     public String index() {
@@ -30,7 +30,7 @@ public class controller {
         return repoComprador.findAll();
     }
 
-    @PostMapping("guaredarComprador")
+    @PostMapping("guardarComprador")
     public String post(@RequestBody Comprador comprador ){
         repoComprador.save(comprador);
         return "Guardado";

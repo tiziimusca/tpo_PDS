@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer numeroPedido;
+    protected Long numeroPedido;
 
     @Column(name = "Fecha de creacion", length = 10)
     protected String fechaCreacion;
