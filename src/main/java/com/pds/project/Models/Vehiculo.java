@@ -18,7 +18,7 @@ import jakarta.persistence.InheritanceType;
 public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idVehiculo;
 
     @Column(name = "marca", length = 50)
     private String marca;
@@ -37,6 +37,9 @@ public class Vehiculo {
 
     @Column(name = "precio")
     private double precio;
+
+    @Column (name = "Estado de vehiculo")
+    private String estado;
 
     public Vehiculo() {}
 
