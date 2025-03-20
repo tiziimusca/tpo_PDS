@@ -18,4 +18,31 @@ public class VendedorServiceImpl implements IVendedorService{
     public List<Vendedor> getVendedores() {
         return repoVendedor.findAll();
     }
+
+    @Override
+    public boolean guardarVendedor(Vendedor vendedor) {
+        try {
+            repoVendedor.save(vendedor);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Vendedor getVendedorById(Long id) {
+        return repoVendedor.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean eliminarVendedor(Long id) {
+        try {
+            repoVendedor.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
