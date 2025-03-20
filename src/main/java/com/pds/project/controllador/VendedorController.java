@@ -32,7 +32,7 @@ public class VendedorController {
     @PostMapping("/guardar")
     public String guardarVendedor(@ModelAttribute Vendedor vendedor, Model model, RedirectAttributes attributes){
         boolean result = vendedorService.guardarVendedor(vendedor);
-        if(result != false){
+        if(!result){
             model.addAttribute("error", "No se pudieron guardar los datos");
             return "/vendedores/nuevo";
         }
@@ -54,7 +54,7 @@ public class VendedorController {
     @GetMapping("/vendedores/eliminar/{id}")
     public String eliminarVendedor(@PathVariable("id") long id, RedirectAttributes attributes){
         boolean result = vendedorService.eliminarVendedor(id);
-        if(result == false){
+        if(!result ){
             attributes.addFlashAttribute("error", "No se pudo eliminar el vendedor con ID "+id);
         }else{
             attributes.addFlashAttribute("success", "Vendedor eliminado correctamente");
