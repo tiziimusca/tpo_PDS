@@ -12,9 +12,9 @@ public class VendedorController {
     @Autowired
     private IVendedorService repoVendedor;
 
-    @GetMapping("/vendedoresView")
+    @GetMapping("/vendedores")
     public String Inicio (Model model){
-        model.addAttribute("vendedores", repoVendedor.getVehiculos());
-        return "VendedoresView";
+        model.addAttribute("vendedores", repoVendedor.getVendedores());
+        return "Vendedores";
     }
 }
