@@ -29,7 +29,7 @@ public class VendedorController {
         return "nuevoVendedor";
     }
 
-    @PostMapping("/guardar")
+    @PostMapping("/vendedores/guardar")
     public String guardarVendedor(@ModelAttribute Vendedor vendedor, Model model, RedirectAttributes attributes){
         boolean result = vendedorService.guardarVendedor(vendedor);
         if(!result){
