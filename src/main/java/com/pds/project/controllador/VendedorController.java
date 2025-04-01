@@ -9,6 +9,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pds.project.Models.Vendedor;
 import com.pds.project.ServiceInterface.IVendedorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @Controller
 @RequestMapping("/vendedores") // Define un prefijo común para todas las rutas
 public class VendedorController {
@@ -17,6 +20,9 @@ public class VendedorController {
     private IVendedorService vendedorService;
 
     @GetMapping
+    @Operation(summary = "Obtener la lista de vendedores")
+    @ApiResponse(responseCode = "200", description = "Lista de vendedores obtenida correctamente")
+    @ApiResponse(responseCode = "404", description = "No se encontraron vendedores")
     public String listarVendedores(Model model) {
         model.addAttribute("vendedores", vendedorService.getVendedores());
         return "vendedores";
@@ -40,6 +46,9 @@ public class VendedorController {
     }
 
     @GetMapping("/editar/{id}")
+    @Operation(summary = "Editar un vendedor por ID")
+    @ApiResponse(responseCode = "200", description = "Vendedor editado correctamente")
+    @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")
     public String editarVendedor(@PathVariable("id") long id, Model model, RedirectAttributes attributes) {
         Vendedor vendedor = vendedorService.getVendedorById(id);
         if (vendedor == null) {
@@ -51,6 +60,9 @@ public class VendedorController {
     }
 
     @GetMapping("/eliminar/{id}")
+    @Operation(summary = "Eliminar un vendedor por ID")
+    @ApiResponse(responseCode = "200", description = "Vendedor eliminado correctamente")
+    @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")   
     public String eliminarVendedor(@PathVariable("id") long id, RedirectAttributes attributes) {
         boolean result = vendedorService.eliminarVendedor(id);
         if (!result) {
