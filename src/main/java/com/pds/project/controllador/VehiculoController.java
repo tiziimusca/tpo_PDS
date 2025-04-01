@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pds.project.Models.Vehiculo;
+import com.pds.project.Models.vehiculos.Auto;
+import com.pds.project.Models.vehiculos.Camion;
+import com.pds.project.Models.vehiculos.Camioneta;
+import com.pds.project.Models.vehiculos.Moto;
 import com.pds.project.ServiceInterface.IVehiculoService;
 
 public class VehiculoController {
@@ -23,8 +27,15 @@ public class VehiculoController {
     }
 
     @GetMapping("/vehiculos/nuevo")
-    public String nuevoVehiculo(Model model){
-        model.addAttribute("Vehiculo", new Vehiculo());
+    public String nuevoVehiculo(Model model, String tipo){
+        if(tipo=="moto")
+            model.addAttribute("vehiculo", new Moto());
+        else if(tipo=="auto")
+            model.addAttribute("vehiculo", new Auto());
+        else if(tipo=="camioneta")
+            model.addAttribute("vehiculo", new Camioneta());
+        else if(tipo=="camion")
+            model.addAttribute("vehiculo", new Camion());
         return "nuevoVehiculo";
     }
 
