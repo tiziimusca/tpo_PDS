@@ -1,37 +1,33 @@
 package com.pds.project.Models;
 
 import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "Pedidos")
+@Table(name = "pedidos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long numeroPedido;
+    private Long numeroPedido;
 
-    @Column(name = "Fecha de creacion", length = 10)
-    protected String fechaCreacion;
-
-    @ManyToOne
-    @JoinColumn(name = "comprador_id")
-    protected Comprador comprador;
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDate fechaCreacion;
 
     @ManyToOne
-    @JoinColumn(name = "vehiculo_id")
-    protected Vehiculo vehiculo;
+    @JoinColumn(name = "comprador_id", nullable = false)
+    private Comprador comprador;
 
-    @Column(name = "Configuracion adicional")
-    protected String configuracionAdicional;
-
-    @ManyToOne
-    @JoinColumn(name = "metodo_pago_id")
-    protected MetodoPago metodoPago;
+    @OneToOne
+    @JoinColumn(name = "vehiculo_id", nullable = false)
+    private Vehiculo vehiculo;
 
     @ManyToOne
-    @JoinColumn(name = "vendedor_id")
-    protected Vendedor vendedor;
+    @JoinColumn(name = "vendedor_id", nullable = false)
+    private Vendedor vendedor;
 
-    @Column(name = "Etapa", length = 20)
-    protected String etapa; // ventas, cobranzas, impuestos, embarque, logistica y entrega
 }
-

@@ -3,61 +3,60 @@ package com.pds.project.controllador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.pds.project.Models.Vendedor;
 import com.pds.project.ServiceInterface.IVendedorService;
 
 @Controller
+@RequestMapping("/vendedores") // Define un prefijo común para todas las rutas
 public class VendedorController {
 
     @Autowired
     private IVendedorService vendedorService;
 
-    @GetMapping("/vendedores")
-    public String Inicio (Model model){
+    @GetMapping
+    public String listarVendedores(Model model) {
         model.addAttribute("vendedores", vendedorService.getVendedores());
-        return "Vendedores";
+        return "vendedores";
     }
 
-    @GetMapping("/vendedores/nuevo")
-    public String nuevoVendedor(Model model){
+    @GetMapping("/nuevo")
+    public String nuevoVendedor(Model model) {
         model.addAttribute("vendedor", new Vendedor());
         return "nuevoVendedor";
     }
 
-    @PostMapping("/vendedores/guardar")
-    public String guardarVendedor(@ModelAttribute Vendedor vendedor, Model model, RedirectAttributes attributes){
+    @PostMapping("/guardar")
+    public String guardarVendedor(@ModelAttribute Vendedor vendedor, RedirectAttributes attributes) {
         boolean result = vendedorService.guardarVendedor(vendedor);
-        if(!result){
-            model.addAttribute("error", "No se pudieron guardar los datos");
-            return "/vendedores/nuevo";
+        if (!result) {
+            attributes.addFlashAttribute("error", "No se pudieron guardar los datos.");
+            return "redirect:/vendedores/nuevo";
         }
-        attributes.addFlashAttribute("success", "Los datos se gurdaron correctamente");
+        attributes.addFlashAttribute("success", "Los datos se guardaron correctamente.");
         return "redirect:/vendedores";
     }
 
-    @GetMapping("/vendedores/editar/{id}")
-    public String editarVendedor(@PathVariable("id") long id, Model model, RedirectAttributes attributes){
+    @GetMapping("/editar/{id}")
+    public String editarVendedor(@PathVariable("id") long id, Model model, RedirectAttributes attributes) {
         Vendedor vendedor = vendedorService.getVendedorById(id);
-        if(vendedor != null){
-            model.addAttribute("vendedor", vendedor);
-            return "/vendedores/nuevo";
+        if (vendedor == null) {
+            attributes.addFlashAttribute("error", "No se encontró el vendedor con ID " + id);
+            return "redirect:/vendedores";
         }
-        attributes.addFlashAttribute("error", "No se encontro el vendedor con ID "+id);
-        return "redirect:/vendedores";   
+        model.addAttribute("vendedor", vendedor);
+        return "nuevoVendedor";
     }
 
-    @GetMapping("/vendedores/eliminar/{id}")
-    public String eliminarVendedor(@PathVariable("id") long id, RedirectAttributes attributes){
+    @GetMapping("/eliminar/{id}")
+    public String eliminarVendedor(@PathVariable("id") long id, RedirectAttributes attributes) {
         boolean result = vendedorService.eliminarVendedor(id);
-        if(!result ){
-            attributes.addFlashAttribute("error", "No se pudo eliminar el vendedor con ID "+id);
-        }else{
-            attributes.addFlashAttribute("success", "Vendedor eliminado correctamente");
+        if (!result) {
+            attributes.addFlashAttribute("error", "No se pudo eliminar el vendedor con ID " + id);
+        } else {
+            attributes.addFlashAttribute("success", "Vendedor eliminado correctamente.");
         }
         return "redirect:/vendedores";
     }

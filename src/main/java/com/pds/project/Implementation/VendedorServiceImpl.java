@@ -1,6 +1,7 @@
 package com.pds.project.Implementation;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import com.pds.project.Repository.IVendedorRepository;
 import com.pds.project.ServiceInterface.IVendedorService;
 
 @Service
-public class VendedorServiceImpl implements IVendedorService{
+public class VendedorServiceImpl implements IVendedorService {
 
     @Autowired
     private IVendedorRepository repoVendedor;
@@ -23,10 +24,9 @@ public class VendedorServiceImpl implements IVendedorService{
     public boolean guardarVendedor(Vendedor vendedor) {
         try {
             repoVendedor.save(vendedor);
-            return true;
+            return true; // Retorna true si la operación fue exitosa
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            return false; // Retorna false si hubo un error al guardar
         }
     }
 
@@ -37,12 +37,10 @@ public class VendedorServiceImpl implements IVendedorService{
 
     @Override
     public boolean eliminarVendedor(Long id) {
-        try {
+        if (repoVendedor.existsById(id)) {
             repoVendedor.deleteById(id);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return false; // Retorna false si el vendedor no existía
     }
 }

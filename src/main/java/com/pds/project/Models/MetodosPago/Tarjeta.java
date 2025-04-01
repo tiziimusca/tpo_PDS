@@ -1,19 +1,19 @@
 package com.pds.project.Models.MetodosPago;
 
-import com.pds.project.Models.MetodoPago;
+import com.pds.project.Models.Pago;
 import com.pds.project.Models.Vehiculo;
-
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
-@DiscriminatorValue("TARJETA")
-public class Tarjeta extends MetodoPago {
-    public Tarjeta() {}
+@DiscriminatorValue(Tarjeta.DISCRIMINATOR)
+@NoArgsConstructor
+public class Tarjeta extends Pago {
+
+    public static final String DISCRIMINATOR = "TARJETA_CREDITO";
 
     @Override
-    public double pagar( Vehiculo vehiculo) {
-        double monto = vehiculo.getPrecio() * 0.95;
-        return monto;
+    public double pagar(Vehiculo vehiculo) {
+        return vehiculo.getPrecio();
     }
 }

@@ -1,93 +1,38 @@
 package com.pds.project.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "Compradores")
+@Table(name = "compradores")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comprador {
-    @Id 
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long idComprador;
+    private Long idComprador;
 
-    @Column(name = "Nombre", length = 60)
-    protected String nombre;
+    @Column(name = "nombre_apellido", length = 100, nullable = false)
+    private String nombreApellido;
 
-    @Column(name = "Apellido", length = 60)
-    protected String apellido;
+    @Column(name = "documento", length = 11, unique = true, nullable = false)
+    private String documento;
 
-    @Column(unique = true, name = "Documento")
-    protected Integer documento;
+    @Column(name = "domicilio", length = 100, nullable = false)
+    private String domicilio;
 
-    @Column(name = "Domicilio", length = 60)
-    protected String domicilio;
+    @Column(name = "telefono", length = 20, unique = true, nullable = false)
+    private String telefono;
 
-    @Column(unique = true, name = "Telefono")
-    protected Integer telefono;
+    @Column(name = "email", length = 60, unique = true, nullable = false)
+    private String email;
 
-    @Column(unique = true, name = "Correo Electronico", length = 60)
-    protected String email;
+    @Column(name = "cuit_cuil", length = 13, unique = true, nullable = true)
+    private String cuitCuil;
 
-    @Column(unique = true, name = "Cuit/Cuil")
-    protected Integer cuitCuil;    
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Integer getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(Integer documento) {
-        this.documento = documento;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
-    }
-
-    public Integer getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getCuitCuil() {
-        return cuitCuil;
-    }
-
-    public void setCuitCuil(Integer cuitCuil) {
-        this.cuitCuil = cuitCuil;
-    }
+    @Column(name = "contraseña", nullable = false)
+    private String contraseña;
 }

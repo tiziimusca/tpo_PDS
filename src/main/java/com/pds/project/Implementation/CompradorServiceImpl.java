@@ -3,14 +3,16 @@ package com.pds.project.Implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pds.project.Models.Comprador;
 import com.pds.project.Repository.ICompradorRepository;
 import com.pds.project.ServiceInterface.ICompradorService;
 
+@Service
 public class CompradorServiceImpl implements ICompradorService {
 
-    @Autowired 
+    @Autowired
     private ICompradorRepository repoComprador;
 
     @Override
@@ -22,10 +24,9 @@ public class CompradorServiceImpl implements ICompradorService {
     public boolean guardarComprador(Comprador comprador) {
         try {
             repoComprador.save(comprador);
-            return true;
+            return true; // Retorna true si la operación fue exitosa
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            return false; // Retorna false si hubo un error al guardar
         }
     }
 
@@ -33,17 +34,13 @@ public class CompradorServiceImpl implements ICompradorService {
     public Comprador getCompradorById(Long id) {
         return repoComprador.findById(id).orElse(null);
     }
-    
 
     @Override
     public boolean eliminarComprador(Long id) {
-        try{
+        if (repoComprador.existsById(id)) {
             repoComprador.deleteById(id);
             return true;
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return false; // Retorna false si el comprador no existía
     }
 }

@@ -4,13 +4,17 @@ import com.pds.project.Models.Vehiculo;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
 
 @Entity
-@DiscriminatorValue("CAMIONETA")
+@DiscriminatorValue(Camioneta.DISCRIMINATOR)
+@NoArgsConstructor
 public class Camioneta extends Vehiculo {
-    public Camioneta() {}
 
-    public Camioneta(String marca, String modelo, String color, Integer numeroChasis, Integer numeroMotor, double precio) {
-        super(marca, modelo, color, numeroChasis, numeroMotor, precio);
+    public static final String DISCRIMINATOR = "CAMIONETA";
+
+    public Camioneta(String marca, String modelo, String color, String numeroChasis, String numeroMotor, double precio,
+            String estado) {
+        super(marca, modelo, color, numeroChasis, numeroMotor, precio, estado);
     }
 }
