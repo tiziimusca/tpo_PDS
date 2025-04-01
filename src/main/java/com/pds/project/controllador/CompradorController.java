@@ -9,6 +9,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pds.project.Models.Comprador;
 import com.pds.project.ServiceInterface.ICompradorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @Controller
 @RequestMapping("/compradores") // Define un prefijo común para todas las rutas
 public class CompradorController {
@@ -17,6 +20,8 @@ public class CompradorController {
     private ICompradorService compradorService;
 
     @GetMapping
+    @Operation(summary = "Obtener la lista de compradores")
+    @ApiResponse(responseCode = "200", description = "Lista de compradores obtenida correctamente")
     public String listarCompradores(Model model) {
         model.addAttribute("compradores", compradorService.getCompradores());
         return "compradores";
