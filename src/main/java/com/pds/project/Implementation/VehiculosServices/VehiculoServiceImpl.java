@@ -1,13 +1,15 @@
-package com.pds.project.Implementation;
+package com.pds.project.Implementation.VehiculosServices;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pds.project.Models.Vehiculo;
 import com.pds.project.Repository.IVehiculoRepository;
-import com.pds.project.ServiceInterface.IVehiculoService;
+import com.pds.project.ServiceInterface.IVehiculosServices.IVehiculoService;
 
+@Service
 public class VehiculoServiceImpl  implements IVehiculoService{
     @Autowired
     private  IVehiculoRepository repoVehiculo;
@@ -24,7 +26,7 @@ public class VehiculoServiceImpl  implements IVehiculoService{
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return false;  
         }
     }
 
