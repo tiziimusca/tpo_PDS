@@ -28,12 +28,18 @@ public class CompradorController {
     }
 
     @GetMapping("/nuevo")
+    @Operation(summary = "Crear un nuevo comprador")
+    @ApiResponse(responseCode = "200", description = "Comprador creado correctamente")
+    @ApiResponse(responseCode = "400", description = "Error al crear el comprador")
     public String nuevoComprador(Model model) {
         model.addAttribute("comprador", new Comprador());
         return "nuevoComprador";
     }
 
     @PostMapping("/guardar")
+    @Operation(summary = "Guardar un comprador")
+    @ApiResponse(responseCode = "200", description = "Comprador guardado correctamente")
+    @ApiResponse(responseCode = "400", description = "Error al guardar el comprador")
     public String guardarComprador(@ModelAttribute Comprador comprador, RedirectAttributes attributes) {
         boolean result = compradorService.guardarComprador(comprador);
         if (!result) {
@@ -45,6 +51,9 @@ public class CompradorController {
     }
 
     @GetMapping("/editar/{id}")
+    @Operation(summary = "Editar un comprador existente")
+    @ApiResponse(responseCode = "200", description = "Comprador editado correctamente")
+    @ApiResponse(responseCode = "404", description = "Comprador no encontrado")
     public String editarComprador(@PathVariable("id") long id, Model model, RedirectAttributes attributes) {
         Comprador comprador = compradorService.getCompradorById(id);
         if (comprador == null) {
@@ -56,6 +65,9 @@ public class CompradorController {
     }
 
     @GetMapping("/eliminar/{id}")
+    @Operation(summary = "Eliminar un comprador por ID")
+    @ApiResponse(responseCode = "200", description = "Comprador eliminado correctamente")
+    @ApiResponse(responseCode = "404", description = "Comprador no encontrado")
     public String eliminarComprador(@PathVariable("id") long id, RedirectAttributes attributes) {
         boolean result = compradorService.eliminarComprador(id);
         if (!result) {
