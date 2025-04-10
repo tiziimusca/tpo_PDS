@@ -24,6 +24,4 @@ public abstract class Pago {
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 
-    public abstract double pagar(Vehiculo vehiculo);
-
 }

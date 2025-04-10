@@ -20,13 +20,38 @@ public class CompradorServiceImpl implements ICompradorService {
         return repoComprador.findAll();
     }
 
+    public enum ResultadoComprador {
+        OK,
+        EMAIL_DUPLICADO,
+        DOCUMENTO_DUPLICADO,
+        TELEFONO_DUPLICADO,
+        CUITCUIL_DUPLICADO,
+        ERROR_DESCONOCIDO,
+    }
+
     @Override
-    public boolean guardarComprador(Comprador comprador) {
+    public ResultadoComprador guardarComprador(Comprador comprador) {
+
+        if (repoComprador.existsByEmail(comprador.getEmail())) {
+            return ResultadoComprador.EMAIL_DUPLICADO;
+        }
+
+        if (repoComprador.existsByDocumento(comprador.getDocumento())) {
+            return ResultadoComprador.DOCUMENTO_DUPLICADO;
+        }
+
+        if (repoComprador.existsByTelefono(comprador.getTelefono())) {
+            return ResultadoComprador.TELEFONO_DUPLICADO;
+        }
+        if (repoComprador.existsByCuitCuil(comprador.getCuitCuil())) {
+            return ResultadoComprador.CUITCUIL_DUPLICADO;
+        }
         try {
             repoComprador.save(comprador);
-            return true; // Retorna true si la operación fue exitosa
+            return ResultadoComprador.OK;
         } catch (Exception e) {
-            return false; // Retorna false si hubo un error al guardar
+            e.printStackTrace();
+            return ResultadoComprador.ERROR_DESCONOCIDO;
         }
     }
 
@@ -42,5 +67,40 @@ public class CompradorServiceImpl implements ICompradorService {
             return true;
         }
         return false; // Retorna false si el comprador no existía
+    }
+
+    @Override
+    public ResultadoComprador actualizarComprador(long id, Comprador nuevosDatos) {
+        Comprador compradorExistente = repoComprador.findById(id).orElse(null);
+
+        if (repoComprador.existsByEmail(nuevosDatos.getEmail())) {
+            return ResultadoComprador.EMAIL_DUPLICADO;
+        }
+
+        if (repoComprador.existsByDocumento(nuevosDatos.getDocumento())) {
+            return ResultadoComprador.DOCUMENTO_DUPLICADO;
+        }
+
+        if (repoComprador.existsByTelefono(nuevosDatos.getTelefono())) {
+            return ResultadoComprador.TELEFONO_DUPLICADO;
+        }
+        if (repoComprador.existsByCuitCuil(nuevosDatos.getCuitCuil())) {
+            return ResultadoComprador.CUITCUIL_DUPLICADO;
+        }
+        try {
+            compradorExistente.setNombreApellido(nuevosDatos.getNombreApellido());
+            compradorExistente.setDocumento(nuevosDatos.getDocumento());
+            compradorExistente.setEmail(nuevosDatos.getEmail());
+            compradorExistente.setTelefono(nuevosDatos.getTelefono());
+            compradorExistente.setCuitCuil(nuevosDatos.getCuitCuil());
+            compradorExistente.setDomicilio(nuevosDatos.getDomicilio());
+            compradorExistente.setContraseña(nuevosDatos.getContraseña());
+            repoComprador.save(compradorExistente);
+            return ResultadoComprador.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultadoComprador.ERROR_DESCONOCIDO;
+        }
+
     }
 }

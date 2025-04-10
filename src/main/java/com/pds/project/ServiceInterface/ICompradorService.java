@@ -1,6 +1,8 @@
 package com.pds.project.ServiceInterface;
 
 import java.util.List;
+
+import com.pds.project.Implementation.CompradorServiceImpl.ResultadoComprador;
 import com.pds.project.Models.Comprador;
 
 public interface ICompradorService {
@@ -18,7 +20,7 @@ public interface ICompradorService {
      * @param comprador Objeto Comprador a guardar.
      * @return true si la operación fue exitosa, false si hubo un error.
      */
-    boolean guardarComprador(Comprador comprador);
+    ResultadoComprador guardarComprador(Comprador comprador);
 
     /**
      * Busca un comprador por su ID.
@@ -36,4 +38,13 @@ public interface ICompradorService {
      *         comprador.
      */
     boolean eliminarComprador(Long id);
+
+    /**
+     * Actualiza un comprador existente en la base de datos.
+     * 
+     * @param id                Identificador único del comprador a actualizar.
+     * @param datosActualizados Objeto Comprador con los nuevos datos.
+     * @return Resultado de la operación de actualización.
+     */
+    ResultadoComprador actualizarComprador(long id, Comprador nuevosDatos);
 }
