@@ -29,12 +29,18 @@ public class VendedorController {
     }
 
     @GetMapping("/nuevo")
+    @Operation(summary = "Crear un nuevo vendedor")
+    @ApiResponse(responseCode = "200", description = "Vendedor creado correctamente")
+    @ApiResponse(responseCode = "400", description = "Error al crear el vendedor")
     public String nuevoVendedor(Model model) {
         model.addAttribute("vendedor", new Vendedor());
         return "nuevoVendedor";
     }
 
     @PostMapping("/guardar")
+    @Operation(summary = "Guardar un nuevo vendedor")
+    @ApiResponse(responseCode = "200", description = "Vendedor guardado correctamente")
+    @ApiResponse(responseCode = "400", description = "Error al guardar el vendedor")
     public String guardarVendedor(@ModelAttribute Vendedor vendedor, RedirectAttributes attributes) {
         boolean result = vendedorService.guardarVendedor(vendedor);
         if (!result) {
