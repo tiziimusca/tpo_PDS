@@ -1,6 +1,8 @@
 package com.pds.project.ServiceInterface;
 
 import java.util.List;
+
+import com.pds.project.Implementation.VendedorServiceImpl.ResultadoVendedor;
 import com.pds.project.Models.Vendedor;
 
 public interface IVendedorService {
@@ -18,7 +20,7 @@ public interface IVendedorService {
      * @param vendedor Objeto vendedor a guardar.
      * @return true si la operación fue exitosa, false si hubo un error.
      */
-    boolean guardarVendedor(Vendedor vendedor);
+    ResultadoVendedor guardarVendedor(Vendedor vendedor);
 
     /**
      * Busca un vendedor por su ID.
@@ -36,4 +38,13 @@ public interface IVendedorService {
      *         vendedor.
      */
     boolean eliminarVendedor(Long id);
+
+    /**
+     * Actualiza un vendedor existente en la base de datos.
+     * 
+     * @param id                Identificador único del vendedor a actualizar.
+     * @param datosActualizados Objeto Vendedor con los nuevos datos.
+     * @return Resultado de la operación de actualización.
+     */
+    ResultadoVendedor actualizarVendedor(long id, Vendedor nuevosDatos);
 }

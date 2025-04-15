@@ -20,13 +20,23 @@ public class VendedorServiceImpl implements IVendedorService {
         return repoVendedor.findAll();
     }
 
+    public enum ResultadoVendedor {
+        OK,
+        EMAIL_DUPLICADO,
+        ERROR_DESCONOCIDO,
+    }
+
     @Override
-    public boolean guardarVendedor(Vendedor vendedor) {
+    public ResultadoVendedor guardarVendedor(Vendedor vendedor) {
+        if (repoVendedor.existsByEmail(vendedor.getEmail())) {
+            return ResultadoVendedor.EMAIL_DUPLICADO;
+        }
         try {
             repoVendedor.save(vendedor);
-            return true; // Retorna true si la operación fue exitosa
+            return ResultadoVendedor.OK;
         } catch (Exception e) {
-            return false; // Retorna false si hubo un error al guardar
+            e.printStackTrace();
+            return ResultadoVendedor.ERROR_DESCONOCIDO;
         }
     }
 
@@ -42,5 +52,22 @@ public class VendedorServiceImpl implements IVendedorService {
             return true;
         }
         return false; // Retorna false si el vendedor no existía
+    }
+
+    @Override
+    public ResultadoVendedor actualizarVendedor(long id, Vendedor nuevosDatos) {
+        Vendedor vendedorExistente = repoVendedor.findById(id).orElse(null);
+
+
+        try {
+            vendedorExistente.setNombreApellido(nuevosDatos.getNombreApellido());
+            vendedorExistente.setEmail(nuevosDatos.getEmail());
+            vendedorExistente.setContraseña(nuevosDatos.getContraseña()); 
+            repoVendedor.save(vendedorExistente);
+            return ResultadoVendedor.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultadoVendedor.ERROR_DESCONOCIDO;
+        }
     }
 }

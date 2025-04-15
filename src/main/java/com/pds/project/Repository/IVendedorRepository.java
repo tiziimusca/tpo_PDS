@@ -8,4 +8,6 @@ import com.pds.project.Models.Vendedor;
 @Repository
 public interface IVendedorRepository extends JpaRepository<Vendedor, Long> {
 
+    boolean existsByEmail(String email);
+
 }
