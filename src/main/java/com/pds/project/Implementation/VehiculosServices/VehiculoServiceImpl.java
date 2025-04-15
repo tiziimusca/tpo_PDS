@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.pds.project.Models.Vehiculo;
 import com.pds.project.Repository.IVehiculoRepository;
 import com.pds.project.ServiceInterface.IVehiculosServices.IVehiculoService;
@@ -19,14 +20,20 @@ public class VehiculoServiceImpl  implements IVehiculoService{
         return repoVehiculo.findAll();
     }
 
+    public enum ResultadoVehiculo {
+        OK,
+        ERROR_CREACION_VEHICULO,
+        ERROR_DESCONOCIDO,
+    }
+
     @Override
-    public boolean guardarVehiculo(Vehiculo vehiculo) {
+    public ResultadoVehiculo guardarVehiculo(Vehiculo vehiculo) {
         try {
             repoVehiculo.save(vehiculo);
-            return true;
+            return ResultadoVehiculo.OK; 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;  
+            return ResultadoVehiculo.ERROR_CREACION_VEHICULO;  
         }
     }
 
@@ -37,12 +44,30 @@ public class VehiculoServiceImpl  implements IVehiculoService{
 
     @Override
     public boolean eliminarVehiculo(Long id) {
-        try {
+            if(repoVehiculo.existsById(id)){
             repoVehiculo.deleteById(id);
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ResultadoVehiculo actualizarVehiculo(long id, Vehiculo nuevosDatos) {
+        Vehiculo vehiculoExistente = repoVehiculo.findById(id).orElse(null);
+        try {
+            vehiculoExistente.setMarca(nuevosDatos.getMarca());
+            vehiculoExistente.setModelo(nuevosDatos.getModelo());
+            vehiculoExistente.setColor(nuevosDatos.getColor());
+            vehiculoExistente.setPrecio(nuevosDatos.getPrecio());
+            vehiculoExistente.setNumeroChasis(nuevosDatos.getNumeroChasis());
+            vehiculoExistente.setNumeroMotor(nuevosDatos.getNumeroMotor());
+            vehiculoExistente.setEstado(nuevosDatos.getEstado());
+            repoVehiculo.save(vehiculoExistente);
+            return ResultadoVehiculo.OK;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return ResultadoVehiculo.ERROR_DESCONOCIDO;
         }
     }
 }
