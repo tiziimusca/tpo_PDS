@@ -73,20 +73,6 @@ public class CompradorServiceImpl implements ICompradorService {
     public ResultadoComprador actualizarComprador(long id, Comprador nuevosDatos) {
         Comprador compradorExistente = repoComprador.findById(id).orElse(null);
 
-        if (repoComprador.existsByEmail(nuevosDatos.getEmail())) {
-            return ResultadoComprador.EMAIL_DUPLICADO;
-        }
-
-        if (repoComprador.existsByDocumento(nuevosDatos.getDocumento())) {
-            return ResultadoComprador.DOCUMENTO_DUPLICADO;
-        }
-
-        if (repoComprador.existsByTelefono(nuevosDatos.getTelefono())) {
-            return ResultadoComprador.TELEFONO_DUPLICADO;
-        }
-        if (repoComprador.existsByCuitCuil(nuevosDatos.getCuitCuil())) {
-            return ResultadoComprador.CUITCUIL_DUPLICADO;
-        }
         try {
             compradorExistente.setNombreApellido(nuevosDatos.getNombreApellido());
             compradorExistente.setDocumento(nuevosDatos.getDocumento());
