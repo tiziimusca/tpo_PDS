@@ -23,8 +23,7 @@ public class Estado {
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @ManyToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
-    private Pedido pedido;
+    @Column(name = "pedidoId", nullable = false)
+    private Long pedidoId;
 
 }

@@ -56,10 +56,10 @@ public class PedidoServiceImpl implements IPedidoService {
         Pedido pedidoExistente = repoPedido.findById(id).orElse(null);
 
         try {
-            pedidoExistente.setComprador(nuevosDatos.getComprador());
+            pedidoExistente.setCompradorId(nuevosDatos.getCompradorId());
             pedidoExistente.setFechaCreacion(nuevosDatos.getFechaCreacion());
-            pedidoExistente.setVehiculo(nuevosDatos.getVehiculo());
-            pedidoExistente.setVendedor(nuevosDatos.getVendedor());
+            pedidoExistente.setVehiculoId(nuevosDatos.getVehiculoId());
+            pedidoExistente.setVendedorId(nuevosDatos.getVendedorId());
             repoPedido.save(pedidoExistente);
             return ResultadoPedido.OK;
         } catch (Exception e) {

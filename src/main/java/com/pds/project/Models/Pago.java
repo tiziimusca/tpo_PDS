@@ -20,8 +20,7 @@ public abstract class Pago {
     @Column(name = "fecha_pago", nullable = false)
     private LocalDate fechaPago;
 
-    @OneToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
-    private Pedido pedido;
+    @Column(name = "pedidoId", nullable = false)
+    private Long pedidoId;
 
 }

@@ -27,9 +27,8 @@ public class InformeFacade {
             for (Pedido pedido : pedidos) {
                 writer.append(pedido.getNumeroPedido().toString()).append(",")
                         .append(pedido.getFechaCreacion().toString()).append(",")
-                        .append(pedido.getVehiculo().getMarca()).append(",")
-                        .append(pedido.getVehiculo().getModelo()).append(",")
-                        .append(pedido.getComprador().getNombreApellido()).append("\n");
+                        .append(pedido.getVehiculoId().toString()).append(",")
+                        .append(pedido.getCompradorId().toString()).append("\n");
             }
 
             System.out.println("Informe generado exitosamente en: " + rutaArchivo);

@@ -18,16 +18,13 @@ public class Pedido {
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDate fechaCreacion;
 
-    @ManyToOne
-    @JoinColumn(name = "comprador_id", nullable = false)
-    private Comprador comprador;
+    @Column(name = "compradorId", nullable = false)
+    private Long compradorId;
 
-    @OneToOne
-    @JoinColumn(name = "vehiculo_id", nullable = false)
-    private Vehiculo vehiculo;
+    @Column(name = "vehiculoId", nullable = false)
+    private Long vehiculoId;
 
-    @ManyToOne
-    @JoinColumn(name = "vendedor_id", nullable = false)
-    private Vendedor vendedor;
+    @Column(name = "vendedorId", nullable = false)
+    private Long vendedorId;
 
 }

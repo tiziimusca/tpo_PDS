@@ -15,9 +15,8 @@ public class ConfiguracionAdicional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idConfig;
 
-    @ManyToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
-    private Pedido pedido;
+    @Column(name = "pedidoId", nullable = false)
+    private Long pedidoId;
 
     @Column(name = "configuracion_adicional", length = 255, nullable = false)
     private String configuracionAdicional;
