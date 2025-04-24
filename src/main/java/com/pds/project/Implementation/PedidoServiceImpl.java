@@ -22,12 +22,16 @@ public class PedidoServiceImpl implements IPedidoService {
 
     public enum ResultadoPedido {
         OK,
+        VEHICULOID_DUPLICADO,
         ERROR_DESCONOCIDO,
     }
 
     @Override
     public ResultadoPedido guardarPedido(Pedido pedido) {
 
+        if (repoPedido.existsByVehiculoId(pedido.getVehiculoId())) {
+            return ResultadoPedido.VEHICULOID_DUPLICADO;
+        }
         try {
             repoPedido.save(pedido);
             return ResultadoPedido.OK;

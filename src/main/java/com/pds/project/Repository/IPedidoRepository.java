@@ -8,4 +8,6 @@ import com.pds.project.Models.Pedido;
 @Repository
 public interface IPedidoRepository extends JpaRepository<Pedido, Long> {
 
+    boolean existsByVehiculoId(Long vehiculoId);
+
 }
