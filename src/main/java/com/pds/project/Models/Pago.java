@@ -3,11 +3,15 @@ package com.pds.project.Models;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "metodo_pago", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "pagos")
+@Getter
+@Setter
 public abstract class Pago {
 
     @Id

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pds.project.Implementation.AdministradorServiceImpl.ResultadoPago;
+import com.pds.project.Implementation.PagoServiceImpl.ResultadoPago;
 import com.pds.project.Models.Pago;
 import com.pds.project.ServiceInterface.IPagoService;
 
@@ -75,6 +75,8 @@ public class PagoController {
 
         return switch (resultado) {
             case OK -> ResponseEntity.ok("Pago guardado con éxito.");
+            case PEDIDOID_DUPLICADO ->
+                ResponseEntity.badRequest().body("Ya existe un pago con ese ID de pedido.");
             case ERROR_DESCONOCIDO ->
                 ResponseEntity.badRequest().body("Ocurrió otro error al guardar el pago.");
         };

@@ -79,6 +79,8 @@ public class PedidoController {
 
         return switch (resultado) {
             case OK -> ResponseEntity.ok("Pedido guardado con éxito.");
+            case VEHICULOID_DUPLICADO ->
+                ResponseEntity.badRequest().body("El vehículo ya está asociado a otro pedido.");
             case ERROR_DESCONOCIDO ->
                 ResponseEntity.badRequest().body("Ocurrió otro error al guardar el pedido.");
         };

@@ -28,7 +28,7 @@ public interface IPagoService {
      * @param id Identificador único del pago.
      * @return Pago.
      */
-    Comprador getPagoById(Long id);
+    Pago getPagoById(Long id);
 
     /**
      * Elimina un pago por su ID.

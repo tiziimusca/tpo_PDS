@@ -33,7 +33,6 @@ public class EstadoServiceImpl implements IEstadoService {
             return ResultadoEstado.PEDIDO_ETAPA_DUPLICADO;
         }
 
-        }
         try {
             repoEstado.save(estado);
             return ResultadoEstado.OK;
