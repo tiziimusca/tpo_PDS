@@ -3,8 +3,10 @@ package com.pds.project.Implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import com.pds.project.Events.EstadoPedidoChangedEvent;
 import com.pds.project.Models.Estado;
 import com.pds.project.Repository.IEstadoRepository;
 import com.pds.project.ServiceInterface.IEstadoService;
@@ -14,6 +16,9 @@ public class EstadoServiceImpl implements IEstadoService {
 
     @Autowired
     private IEstadoRepository repoEstado;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<Estado> getEstados() {
@@ -32,6 +37,10 @@ public class EstadoServiceImpl implements IEstadoService {
         if (repoEstado.existsEtapaPedido(estado.getEtapa(), estado.getPedidoId())) {
             return ResultadoEstado.PEDIDO_ETAPA_DUPLICADO;
         }
+
+        EstadoPedidoChangedEvent event = new EstadoPedidoChangedEvent(this, estado.getPedidoId(), estado.getEtapa(),
+                estado.getFecha());
+        eventPublisher.publishEvent(event);
 
         try {
             repoEstado.save(estado);
@@ -65,6 +74,12 @@ public class EstadoServiceImpl implements IEstadoService {
             estadoExistente.setFecha(nuevosDatos.getFecha());
             estadoExistente.setPedidoId(nuevosDatos.getPedidoId());
             repoEstado.save(estadoExistente);
+
+            EstadoPedidoChangedEvent event = new EstadoPedidoChangedEvent(this, nuevosDatos.getPedidoId(),
+                    nuevosDatos.getEtapa(),
+                    nuevosDatos.getFecha());
+            eventPublisher.publishEvent(event);
+
             return ResultadoEstado.OK;
         } catch (Exception e) {
             e.printStackTrace();
