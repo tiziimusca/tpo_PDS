@@ -3,9 +3,7 @@ package com.pds.project.Implementation.VehiculosServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pds.project.Implementation.VehiculosServices.MotoService.ResultadoMoto;
 import com.pds.project.Models.vehiculos.Auto;
-import com.pds.project.Models.vehiculos.Moto;
 import com.pds.project.Repository.IVehiculoRepository;
 import com.pds.project.ServiceInterface.IVehiculosServices.IAutoService;
 

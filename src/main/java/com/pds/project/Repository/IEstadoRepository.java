@@ -8,5 +8,5 @@ import com.pds.project.Models.Estado;
 @Repository
 public interface IEstadoRepository extends JpaRepository<Estado, Long> {
 
-    boolean existsEtapaPedido(String etapa, Long pedidoId);
+    boolean existsByEtapaAndPedidoId(String etapa, Long pedidoId);
 }

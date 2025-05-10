@@ -34,7 +34,7 @@ public class EstadoServiceImpl implements IEstadoService {
     @Override
     public ResultadoEstado guardarEstado(Estado estado) {
 
-        if (repoEstado.existsEtapaPedido(estado.getEtapa(), estado.getPedidoId())) {
+        if (repoEstado.existsByEtapaAndPedidoId(estado.getEtapa(), estado.getPedidoId())) {
             return ResultadoEstado.PEDIDO_ETAPA_DUPLICADO;
         }
 

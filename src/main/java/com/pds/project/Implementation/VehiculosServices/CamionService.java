@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pds.project.Models.vehiculos.Camion;
-import com.pds.project.Models.vehiculos.Camioneta;
 import com.pds.project.Repository.IVehiculoRepository;
 import com.pds.project.ServiceInterface.IVehiculosServices.ICamionService;
 
