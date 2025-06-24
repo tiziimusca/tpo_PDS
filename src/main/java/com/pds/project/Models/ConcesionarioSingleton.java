@@ -1,7 +1,5 @@
 package com.pds.project.Models;
 
-import com.pds.project.Models.Concesionario;
-
 public class ConcesionarioSingleton {
     private static Concesionario concesionario;
 

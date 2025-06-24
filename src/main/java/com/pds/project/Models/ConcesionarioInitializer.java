@@ -1,6 +1,5 @@
 package com.pds.project.Models;
 
-import com.pds.project.Models.Concesionario;
 import com.pds.project.Repository.IConcesionarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
