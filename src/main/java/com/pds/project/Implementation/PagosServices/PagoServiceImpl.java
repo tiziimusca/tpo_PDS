@@ -1,4 +1,4 @@
-package com.pds.project.Implementation;
+package com.pds.project.Implementation.PagosServices;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pds.project.Models.Pago;
 import com.pds.project.Repository.IPagoRepository;
-import com.pds.project.ServiceInterface.IPagoService;
+import com.pds.project.ServiceInterface.IPagosServices.IPagoService;
 
 @Service
 public class PagoServiceImpl implements IPagoService {
@@ -53,7 +53,7 @@ public class PagoServiceImpl implements IPagoService {
             repoPago.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el pago no existía
+        return false;
     }
 
     @Override

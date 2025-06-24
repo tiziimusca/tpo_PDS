@@ -47,4 +47,12 @@ public interface IPedidoService {
      * @return Resultado de la operación de actualización.
      */
     ResultadoPedido actualizarPedido(long id, Pedido nuevosDatos);
+
+    /**
+     * Obtiene una lista de pedidos asociados a un comprador específico.
+     * 
+     * @param id ID del comprador.
+     * @return Lista de pedidos asociados al comprador.
+     */
+    List<Pedido> getPedidosByCompradorId(long id);
 }

@@ -9,7 +9,7 @@ public class EstadoPedidoChangedListener {
     @EventListener
     public void manejarCambioEstado(EstadoPedidoChangedEvent evento) {
         System.out.println(
-                "🔔 Pedido ID " + evento.getPedidoId() + "ha pasado a la etapa " + evento.getEtapa() +
+                "🔔 Pedido ID " + evento.getPedidoId() + " ha pasado a la etapa " + evento.getEtapa() +
                         " en la fecha " + evento.getFecha() + ".");
 
     }

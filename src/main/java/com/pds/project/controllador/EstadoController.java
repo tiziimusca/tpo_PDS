@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Controller
-@RequestMapping("/estados") // Define un prefijo común para todas las rutas
+@RequestMapping("/admin/estados") // Define un prefijo común para todas las rutas
 public class EstadoController {
 
     @Autowired

@@ -5,15 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.pds.project.Models.Vehiculo;
 import com.pds.project.Repository.IVehiculoRepository;
 import com.pds.project.ServiceInterface.IVehiculosServices.IVehiculoService;
 
 @Service
-public class VehiculoServiceImpl  implements IVehiculoService{
+public class VehiculoServiceImpl implements IVehiculoService {
     @Autowired
-    private  IVehiculoRepository repoVehiculo;
+    private IVehiculoRepository repoVehiculo;
 
     @Override
     public List<Vehiculo> getVehiculos() {
@@ -30,10 +29,10 @@ public class VehiculoServiceImpl  implements IVehiculoService{
     public ResultadoVehiculo guardarVehiculo(Vehiculo vehiculo) {
         try {
             repoVehiculo.save(vehiculo);
-            return ResultadoVehiculo.OK; 
+            return ResultadoVehiculo.OK;
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultadoVehiculo.ERROR_CREACION_VEHICULO;  
+            return ResultadoVehiculo.ERROR_CREACION_VEHICULO;
         }
     }
 
@@ -44,10 +43,10 @@ public class VehiculoServiceImpl  implements IVehiculoService{
 
     @Override
     public boolean eliminarVehiculo(Long id) {
-            if(repoVehiculo.existsById(id)){
+        if (repoVehiculo.existsById(id)) {
             repoVehiculo.deleteById(id);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -69,5 +68,17 @@ public class VehiculoServiceImpl  implements IVehiculoService{
             e.printStackTrace();
             return ResultadoVehiculo.ERROR_DESCONOCIDO;
         }
+    }
+
+    @Override
+    public List<Vehiculo> getVehiculosDisponibles() {
+        List<Vehiculo> vehiculos = repoVehiculo.findAll();
+        List<Vehiculo> vehiculosDisponibles = new java.util.ArrayList<>();
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getEstado().equals("disponible")) {
+                vehiculosDisponibles.add(vehiculo);
+            }
+        }
+        return vehiculosDisponibles;
     }
 }

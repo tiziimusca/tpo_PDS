@@ -21,8 +21,10 @@ import com.pds.project.ServiceInterface.ICompradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
-@RequestMapping("/compradores") // Define un prefijo común para todas las rutas
+@RequestMapping("/admin/compradores") // Define un prefijo común para todas las rutas
 public class CompradorController {
 
     @Autowired

@@ -14,7 +14,6 @@ public class ConcesionarioInitializer {
 
     @PostConstruct
     public void init() {
-        // Asumimos que solo hay un concesionario, o tomamos el primero
         Concesionario concesionario = concesionarioRepository.findAll().stream().findFirst().orElse(null);
 
         if (concesionario != null) {

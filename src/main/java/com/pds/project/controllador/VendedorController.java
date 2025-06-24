@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Controller
-@RequestMapping("/vendedores") // Define un prefijo común para todas las rutas
+@RequestMapping("/admin/vendedores") // Define un prefijo común para todas las rutas
 public class VendedorController {
 
     @Autowired
@@ -55,10 +55,10 @@ public class VendedorController {
     @Operation(summary = "Editar un vendedor existente")
     @ApiResponse(responseCode = "200", description = "Vendedor editado correctamente")
     @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")
-    public ResponseEntity<String> editarVendedor(@PathVariable("id") long id, 
+    public ResponseEntity<String> editarVendedor(@PathVariable("id") long id,
             @RequestBody Vendedor datosActualizados) {
         ResultadoVendedor resultado = vendedorService.actualizarVendedor(id, datosActualizados);
-        
+
         return switch (resultado) {
             case OK -> ResponseEntity.ok("Vendedor editado con éxito.");
             case EMAIL_DUPLICADO -> ResponseEntity.badRequest().body("Ya existe otro vendedor con ese email.");
@@ -68,7 +68,7 @@ public class VendedorController {
 
     @GetMapping("/obtener/{id}")
     @Operation(summary = "Obtener un vendedor por ID")
-    @ApiResponse(responseCode = "200", description = "Vendedor encontrado") 
+    @ApiResponse(responseCode = "200", description = "Vendedor encontrado")
     @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")
     public ResponseEntity<Vendedor> obtenerVendedor(@PathVariable("id") long id) {
         Vendedor vendedor = vendedorService.getVendedorById(id);
@@ -83,7 +83,7 @@ public class VendedorController {
     @DeleteMapping("/eliminar/{id}")
     @Operation(summary = "Eliminar un vendedor por ID")
     @ApiResponse(responseCode = "200", description = "Vendedor eliminado correctamente")
-    @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")   
+    @ApiResponse(responseCode = "404", description = "Vendedor no encontrado")
     public ResponseEntity<String> eliminarVendedor(@PathVariable("id") long id) {
         boolean eliminado = vendedorService.eliminarVendedor(id);
 

@@ -1,9 +1,9 @@
-package com.pds.project.ServiceInterface;
+package com.pds.project.ServiceInterface.IPagosServices;
 
 import java.util.List;
 
-import com.pds.project.Implementation.PagoServiceImpl.ResultadoPago;
 import com.pds.project.Models.Pago;
+import com.pds.project.Implementation.PagosServices.PagoServiceImpl.ResultadoPago;
 
 public interface IPagoService {
 

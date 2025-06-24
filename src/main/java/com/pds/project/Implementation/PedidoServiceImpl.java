@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pds.project.Events.EstadoPedidoChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import com.pds.project.Models.Pedido;
 import com.pds.project.Repository.IPedidoRepository;
 import com.pds.project.ServiceInterface.IPedidoService;
@@ -14,6 +16,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Autowired
     private IPedidoRepository repoPedido;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<Pedido> getPedidos() {
@@ -34,6 +39,12 @@ public class PedidoServiceImpl implements IPedidoService {
         }
         try {
             repoPedido.save(pedido);
+
+            EstadoPedidoChangedEvent event = new EstadoPedidoChangedEvent(this, pedido.getNumeroPedido(),
+                    "VENTAS", pedido.getFechaCreacion());
+
+            eventPublisher.publishEvent(event);
+
             return ResultadoPedido.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +63,7 @@ public class PedidoServiceImpl implements IPedidoService {
             repoPedido.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el comprador no existía
+        return false;
     }
 
     @Override
@@ -71,5 +82,14 @@ public class PedidoServiceImpl implements IPedidoService {
             return ResultadoPedido.ERROR_DESCONOCIDO;
         }
 
+    }
+
+    @Override
+    public List<Pedido> getPedidosByCompradorId(long id) {
+        List<Pedido> pedidos = repoPedido.findAll();
+        List<Pedido> pedidosPorComprador = pedidos.stream()
+                .filter(pedido -> pedido.getCompradorId() == id)
+                .toList();
+        return pedidosPorComprador;
     }
 }

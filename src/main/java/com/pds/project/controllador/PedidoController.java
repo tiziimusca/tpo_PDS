@@ -16,21 +16,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Controller
-@RequestMapping("/pedidos") // Define un prefijo común para todas las rutas
+@RequestMapping("/admin/pedidos") // Define un prefijo común para todas las rutas
 public class PedidoController {
 
     @Autowired
     private IPedidoService pedidoService;
-
-    @GetMapping("/generar-informe")
-    public ResponseEntity<String> generarInforme() {
-        List<Pedido> pedidos = pedidoService.getPedidos(); // asumido
-        String ruta = "informe_pedidos.csv";
-
-        InformeFacade.generarInformeCSV(pedidos, ruta);
-
-        return ResponseEntity.ok("Informe generado exitosamente");
-    }
 
     @GetMapping
     @Operation(summary = "Obtener la lista de pedidos")
@@ -99,5 +89,14 @@ public class PedidoController {
         }
 
         return ResponseEntity.ok("Pedido eliminado correctamente.");
+    }
+
+    @GetMapping("/getPedidosPorComprador/{id}")
+    @Operation(summary = "Obtener pedidos por ID de comprador")
+    @ApiResponse(responseCode = "200", description = "Pedidos encontrados")
+    @ApiResponse(responseCode = "404", description = "Comprador no encontrado o sin pedidos")
+    public ResponseEntity<List<Pedido>> getPedidosPorComprador(@PathVariable("id") long id) {
+        List<Pedido> pedidos = pedidoService.getPedidosByCompradorId(id);
+        return ResponseEntity.ok(pedidos);
     }
 }

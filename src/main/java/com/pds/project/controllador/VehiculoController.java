@@ -38,7 +38,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Controller
-@RequestMapping("/vehiculos") // Define un prefijo común para todas las rutas
+@RequestMapping("/admin/vehiculos") // Define un prefijo común para todas las rutas
 public class VehiculoController {
 
     @Autowired
@@ -52,25 +52,23 @@ public class VehiculoController {
     @Autowired
     private ICamionService camionService;
 
-
     @GetMapping
     @Operation(summary = "Obtener la lista de vehiculos")
     @ApiResponse(responseCode = "200", description = "Lista de vehiculos obtenida correctamente")
     @ApiResponse(responseCode = "404", description = "No se encontraron vehiculos")
-    public ResponseEntity listarVehiculos (){
+    public ResponseEntity listarVehiculos() {
         List<Vehiculo> vehiculos = vehiculoService.getVehiculos();
         return ResponseEntity.ok(vehiculos);
     }
 
- 
     @PostMapping("/guardar/moto")
     @Operation(summary = "Guardar un vehiculo de tipo moto")
     @ApiResponse(responseCode = "200", description = "Moto guardada correctamente")
     @ApiResponse(responseCode = "400", description = "Error al guardar la moto")
-    public ResponseEntity<String> guardarVehiculoMoto(Moto moto){
+    public ResponseEntity<String> guardarVehiculoMoto(Moto moto) {
         ResultadoMoto resultado = motoService.guardarMoto(moto);
-        
-        if (resultado==ResultadoMoto.OK) {
+
+        if (resultado == ResultadoMoto.OK) {
             return ResponseEntity.ok("Moto guardada correctamente");
         } else {
             return ResponseEntity.badRequest().body("Error al guardar la moto");
@@ -81,23 +79,23 @@ public class VehiculoController {
     @Operation(summary = "Guardar un vehiculo de tipo auto")
     @ApiResponse(responseCode = "200", description = "Auto guardado correctamente")
     @ApiResponse(responseCode = "400", description = "Error al guardar el auto")
-    public ResponseEntity<String> guardarNuevoVehiculoAuto(Auto auto){
+    public ResponseEntity<String> guardarNuevoVehiculoAuto(Auto auto) {
         ResultadoAuto resultado = autoService.guardarAuto(auto);
-        if (resultado==ResultadoAuto.OK) {
-            return ResponseEntity.ok("Auto guardado correctamente");
-        } else {
-            return ResponseEntity.badRequest().body("Error al guardar el auto");
-            
-        }
+
+        return switch (resultado) {
+            case OK -> ResponseEntity.ok("Auto guardado correctamente");
+            case NO_EXISTE -> ResponseEntity.badRequest().body("El auto a actualizar no existe");
+            case ERROR_DESCONOCIDO -> ResponseEntity.status(500).body("Error interno al guardar el auto");
+        };
     }
 
     @PostMapping("/guardar/camioneta")
     @Operation(summary = "Guardar un vehiculo de tipo camioneta")
     @ApiResponse(responseCode = "200", description = "Camioneta guardada correctamente")
     @ApiResponse(responseCode = "400", description = "Error al guardar la camioneta")
-    public ResponseEntity<String> guardarNuevoVehiculoCamioneta(Camioneta camioneta){
+    public ResponseEntity<String> guardarNuevoVehiculoCamioneta(Camioneta camioneta) {
         ResultadoCamioneta resultado = camionetaService.guardarCamioneta(camioneta);
-        if (resultado==ResultadoCamioneta.OK) {
+        if (resultado == ResultadoCamioneta.OK) {
             return ResponseEntity.ok("Camioneta guardada correctamente");
         } else {
             return ResponseEntity.badRequest().body("Error al guardar la camioneta");
@@ -108,9 +106,9 @@ public class VehiculoController {
     @Operation(summary = "Guardar un nuevo vehiculo de tipo camion")
     @ApiResponse(responseCode = "200", description = "Camion guardado correctamente")
     @ApiResponse(responseCode = "400", description = "Error al guardar el camion")
-    public ResponseEntity<String> guardarNuevoVehiculoCamion(Camion Camion){
+    public ResponseEntity<String> guardarNuevoVehiculoCamion(Camion Camion) {
         ResultadoCamion resultado = camionService.guardarCamion(Camion);
-        if (resultado==ResultadoCamion.OK) {
+        if (resultado == ResultadoCamion.OK) {
             return ResponseEntity.ok("Camion guardado correctamente");
         } else {
             return ResponseEntity.badRequest().body("Error al guardar el camion");
@@ -121,9 +119,9 @@ public class VehiculoController {
     @Operation(summary = "Editar un vehiculo por ID")
     @ApiResponse(responseCode = "200", description = "Vehiculo editado correctamente")
     @ApiResponse(responseCode = "404", description = "Vehiculo no encontrado")
-    public ResponseEntity<String> editarVehiculo(@PathVariable("id") Long id, @RequestBody Vehiculo vehiculo) { 
-       ResultadoVehiculo resultado= vehiculoService.actualizarVehiculo(id, vehiculo);
-        if (resultado==ResultadoVehiculo.OK) {
+    public ResponseEntity<String> editarVehiculo(@PathVariable("id") Long id, @RequestBody Vehiculo vehiculo) {
+        ResultadoVehiculo resultado = vehiculoService.actualizarVehiculo(id, vehiculo);
+        if (resultado == ResultadoVehiculo.OK) {
             return ResponseEntity.ok("Vehiculo editado correctamente");
         } else {
             return ResponseEntity.badRequest().body("Error al editar el vehiculo");
@@ -144,4 +142,14 @@ public class VehiculoController {
 
         return ResponseEntity.ok("Vehiculo eliminado correctamente.");
     }
+
+    @GetMapping("/disponibles")
+    @Operation(summary = "Obtener la lista de vehiculos disponibles")
+    @ApiResponse(responseCode = "200", description = "Lista de vehiculos disponibles obtenida correctamente")
+    @ApiResponse(responseCode = "404", description = "No se encontraron vehiculos disponibles")
+    public ResponseEntity listarVehiculosDisponibles() {
+        List<Vehiculo> vehiculos = vehiculoService.getVehiculosDisponibles();
+        return ResponseEntity.ok(vehiculos);
+    }
+
 }

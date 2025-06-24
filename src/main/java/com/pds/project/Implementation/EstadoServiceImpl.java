@@ -34,7 +34,7 @@ public class EstadoServiceImpl implements IEstadoService {
     @Override
     public ResultadoEstado guardarEstado(Estado estado) {
 
-        if (repoEstado.existsEtapaPedido(estado.getEtapa(), estado.getPedidoId())) {
+        if (repoEstado.existsByEtapaAndPedidoId(estado.getEtapa(), estado.getPedidoId())) {
             return ResultadoEstado.PEDIDO_ETAPA_DUPLICADO;
         }
 
@@ -62,7 +62,7 @@ public class EstadoServiceImpl implements IEstadoService {
             repoEstado.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el estado no existía
+        return false;
     }
 
     @Override

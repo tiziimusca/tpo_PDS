@@ -53,7 +53,7 @@ public class AdministradorServiceImpl implements IAdministradorService {
             repoAdministrador.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el comprador no existía
+        return false;
     }
 
     @Override

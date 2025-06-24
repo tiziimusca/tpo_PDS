@@ -1,6 +1,7 @@
 package com.pds.project.Implementation;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,12 +67,13 @@ public class CompradorServiceImpl implements ICompradorService {
             repoComprador.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el comprador no existía
+        return false;
     }
 
     @Override
     public ResultadoComprador actualizarComprador(long id, Comprador nuevosDatos) {
-        Comprador compradorExistente = repoComprador.findById(id).orElse(null);
+        Comprador compradorExistente = repoComprador.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No se encontró el comprador con ID " + id));
 
         try {
             compradorExistente.setNombreApellido(nuevosDatos.getNombreApellido());

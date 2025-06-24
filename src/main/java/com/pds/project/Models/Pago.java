@@ -27,4 +27,9 @@ public abstract class Pago {
     @Column(name = "pedidoId", nullable = false)
     private Long pedidoId;
 
+    public Pago(double monto, LocalDate fechaPago, Long pedidoId) {
+        this.monto = monto;
+        this.fechaPago = fechaPago;
+        this.pedidoId = pedidoId;
+    }
 }

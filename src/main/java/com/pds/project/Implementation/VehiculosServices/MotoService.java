@@ -8,19 +8,19 @@ import com.pds.project.Repository.IVehiculoRepository;
 import com.pds.project.ServiceInterface.IVehiculosServices.IMotoService;
 
 @Service
-public class MotoService implements IMotoService{
+public class MotoService implements IMotoService {
 
     @Autowired
-    private IVehiculoRepository repo; // Asegúrate de tener un repositorio para Moto
+    private IVehiculoRepository repo;
 
     public enum ResultadoMoto {
         OK,
         ERROR_DESCONOCIDO,
-    }   
+    }
 
     @Override
     public ResultadoMoto guardarMoto(Moto moto) {
-       try {
+        try {
             repo.save(moto);
             return ResultadoMoto.OK;
         } catch (Exception e) {
@@ -28,5 +28,5 @@ public class MotoService implements IMotoService{
             return ResultadoMoto.ERROR_DESCONOCIDO;
         }
     }
-    
+
 }

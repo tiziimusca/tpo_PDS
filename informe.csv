@@ -1,0 +1,8 @@
+Información del Concesionario
+Nombre: Concesionaria Ejemplo
+CUIT: 30-12345678-9
+Dirección: Av. Cabildo 1742
+
+ID Pedido,Fecha,ID Vehiculo,ID Comprador,Estado Actual
+1,2025-06-22,1,1,ventas
+3,2025-06-22,2,4,embarque

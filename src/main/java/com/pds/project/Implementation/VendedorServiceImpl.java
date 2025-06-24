@@ -51,18 +51,17 @@ public class VendedorServiceImpl implements IVendedorService {
             repoVendedor.deleteById(id);
             return true;
         }
-        return false; // Retorna false si el vendedor no existía
+        return false;
     }
 
     @Override
     public ResultadoVendedor actualizarVendedor(long id, Vendedor nuevosDatos) {
         Vendedor vendedorExistente = repoVendedor.findById(id).orElse(null);
 
-
         try {
             vendedorExistente.setNombreApellido(nuevosDatos.getNombreApellido());
             vendedorExistente.setEmail(nuevosDatos.getEmail());
-            vendedorExistente.setContraseña(nuevosDatos.getContraseña()); 
+            vendedorExistente.setContraseña(nuevosDatos.getContraseña());
             repoVendedor.save(vendedorExistente);
             return ResultadoVendedor.OK;
         } catch (Exception e) {
